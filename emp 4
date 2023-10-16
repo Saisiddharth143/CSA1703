@@ -1,0 +1,22 @@
+from itertools import permutations
+def solve_cryptarithmetic(puzzle):
+    letters = set("".join(puzzle))  # Get unique letters
+    if len(letters) > 10:
+        print("Too many letters for a valid solution (more than 10).")
+        return
+    for perm in permutations(range(10), len(letters)):
+        mapping = dict(zip(letters, perm))
+        if is_valid_solution(puzzle, mapping):
+            return mapping
+def is_valid_solution(puzzle, mapping):
+    num1 = int("".join(str(mapping[ch]) for ch in puzzle[0]))
+    num2 = int("".join(str(mapping[ch]) for ch in puzzle[1]))
+    result = int("".join(str(mapping[ch]) for ch in puzzle[2]))
+    return num1 + num2 == result
+puzzle = ["SEND", "MORE", "MONEY"]
+mapping = solve_cryptarithmetic(puzzle)
+if mapping is not None:
+    for ch, digit in mapping.items():
+        print(f"{ch} = {digit}")
+else:
+    print("No solution found.")
