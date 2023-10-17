@@ -1,29 +1,43 @@
-class VacuumCleaner:
-    def __init__(self):
-        self.location = 0  
-        self.status = ["Dirty", "Dirty"]  
-        self.actions = []
-    def clean(self):
-        if self.status[self.location] == "Dirty":
-            self.status[self.location] = "Clean"
-            self.actions.append(f"Cleaned Room {chr(ord('A') + self.location)}")
-        else:
-            self.actions.append(f"Room {chr(ord('A') + self.location)} is already clean")
-    def move(self):
-        if self.location == 0:
-            self.location = 1
-            self.actions.append("Moved to Room B")
-        else:
-            self.location = 0
-            self.actions.append("Moved to Room A")
-    def check_status(self):
-        return self.status
-    def perform_actions(self):
-        while "Dirty" in self.status:
-            self.clean()
-            self.move()
-        return self.actions
-if __name__ == "__main__":
-    cleaner = VacuumCleaner()
-    actions = cleaner.perform_actions()
-    print("\n".join(actions))
+import random
+
+def display(room):
+    print(room)
+
+room = [
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+]
+print("All the rooom are dirty")
+display(room)
+
+x =0
+y= 0
+
+while x < 4:
+    while y < 4:
+        room[x][y] = random.choice([0,1])
+        y+=1
+    x+=1
+    y=0
+
+print("Before cleaning the room I detect all of these random dirts")
+display(room)
+x =0
+y= 0
+z=0
+while x < 4:
+    while y < 4:
+        if room[x][y] == 1:
+            print("Vaccum in this location now,",x, y)
+            room[x][y] = 0
+            print("cleaned", x, y)
+            z+=1
+        y+=1
+    x+=1
+    y=0
+pro= (100-((z/16)*100))
+print("Room is clean now")
+display(room)
+print('performance=',pro,'%')
